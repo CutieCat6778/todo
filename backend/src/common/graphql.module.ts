@@ -12,7 +12,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       autoSchemaFile: './graphql/schema.gql',
       cors: {
         credential: true,
-        origin: true,
+        origin: process.env.NODE_ENV === "development" ? true : false,
       }
     }),
   ],
