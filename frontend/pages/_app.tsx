@@ -2,6 +2,10 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import Head from 'next/head';
+import { theme } from '../utils/theme';
+import "@fontsource/comfortaa";
+import "@fontsource/space-mono";
+import "@fontsource/roboto";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </style>
       </Head>
 
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </>
