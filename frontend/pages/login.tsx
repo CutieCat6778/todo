@@ -4,6 +4,9 @@ import request from "graphql-request";
 import { NextPage } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 export interface IsError {
   isError: boolean;
@@ -44,7 +47,7 @@ const Login: NextPage<any> = ({ auth }) => {
   async function logIn() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     try {
-      const { login } = await request("http://localhost:6969/graphql/", GET_USER, {
+      const { login } = await request(publicRuntimeConfig.backendUrl, GET_USER, {
         input: {
           username,
           password,

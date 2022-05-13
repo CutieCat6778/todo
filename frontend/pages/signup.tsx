@@ -4,7 +4,9 @@ import request from "graphql-request";
 import { NextPage } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
+import getConfig from "next/config";
 
+const { publicRuntimeConfig } = getConfig();
 export interface IsError {
   isError: boolean;
   message: string | null;
@@ -62,7 +64,7 @@ const Signup: NextPage<any> = ({ auth }) => {
     })
 
     try {
-      const { signup } = await request("http://localhost:6969/graphql/", SIGNUP_USER, {
+      const { signup } = await request(publicRuntimeConfig.backendUrl, SIGNUP_USER, {
         input: {
           username,
           password,
