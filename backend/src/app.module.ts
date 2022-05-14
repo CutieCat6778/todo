@@ -5,7 +5,8 @@ import { UserModule } from './user/user.module';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
 import { CorsMiddleware } from './cors.middleware';
-import { AppController } from './app.controller';
+import { AppController } from './app/app.controller';
+import { AppService } from './app/app.service';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AppController } from './app.controller';
     AuthModule,
   ],
   controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
