@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "MONGO": "mongodb+srv://thinh:23072006@bot-cool.wta4z.gcp.mongodb.net/todo?retryWrites=true&w=majority",
-    "SECRET": "!THINHNGUYEN2006@",
-    "ORIGINS": "http://localhost:3000,https://todo-frontend-pied.vercel.app"
-  },
   "builds": [
     {
       "src": "src/main.ts",
