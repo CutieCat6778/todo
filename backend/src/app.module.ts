@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { CorsMiddleware } from './cors.middleware';
 import { AppController } from './app/app.controller';
 import { AppService } from './app/app.service';
+import { SessionModule } from './session/session.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AppService } from './app/app.service';
     UserModule,
     CommonModule,
     AuthModule,
+    SessionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

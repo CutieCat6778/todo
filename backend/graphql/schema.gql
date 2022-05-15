@@ -74,14 +74,21 @@ type Tables {
   createdAt: DateTime!
 }
 
-type LoginResponse {
+type Data {
   access_token: String!
   user: UserSecure!
+}
+
+type LoginResponse {
+  status: Float!
+  data: Data!
+  withCookie: Boolean!
 }
 
 type Query {
   findAll: [User!]!
   findUser(username: String!): User!
+  cookieLogin: User!
 }
 
 type Mutation {

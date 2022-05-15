@@ -12,10 +12,11 @@ import { GraphQLModule } from '@nestjs/graphql';
       autoSchemaFile: './graphql/schema.gql',
       cors: {
         credential: true,
-        origin: true, //process.env.NODE_ENV === "development" ? true : false,
-      }
+        origin: process.env.NODE_ENV === 'development' ? true : false,
+      },
+      context: ({ req, res }) => ({ req, res }),
     }),
   ],
-  providers: []
+  providers: [],
 })
 export class GraphqlModule {}

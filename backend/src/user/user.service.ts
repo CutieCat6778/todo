@@ -41,4 +41,8 @@ export class UserService {
     const users = this.model.find();
     return users;
   }
+
+  async findUserId(id: string): Promise<User> {
+    return this.model.findById(id);
+  }
 }
