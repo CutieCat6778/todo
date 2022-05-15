@@ -18,6 +18,7 @@
     "@fontsource/space-mono": "^4.5.8",
     "@types/bcrypt": "^5.0.0",
     "bcrypt": "^5.0.1",
+    "cookie-cutter": "^0.2.0",
     "framer-motion": "^6.3.3",
     "graphql": "^16.4.0",
     "graphql-request": "^4.2.0",

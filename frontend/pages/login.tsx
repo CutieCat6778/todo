@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input } from "@chakra-ui/react";
 import { NextPage } from "next";
-import cookies from "next-cookies";
+import cookieCutter from "cookie-cutter";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -49,16 +49,19 @@ const Login: NextPage<{ access_token: string }> = ({ access_token }) => {
   useEffect(() => {
     if (loading) console.log("loading...", loading);
     if (error) {
-      console.log(error);
       setIsError({
         isError: true,
         message: error.message,
       })
     }
-    if (!loading) {
-      console.log(data);
+    if (!loading && data) {
+      const cookie = cookieCutter.get('access_token');
+      if(!cookie) {
+        cookieCutter.set('access_token', data.login.data.access_token, { expires: Date.now() + 1000 * 60 * 60 * 48 })
+      }
+      router.push('/home');
     }
-  }, [loading, error, data])
+  }, [loading, error, data, router])
 
 
   return (
@@ -125,18 +128,3 @@ const Login: NextPage<{ access_token: string }> = ({ access_token }) => {
 }
 
 export default Login
-
-export async function getServerSideProps(ctx: any) {
-  try {
-    const cookie = cookies(ctx);
-    const { access_token } = cookie;
-
-    return {
-      props: {
-        access_token,
-      }
-    }
-  } catch (e) {
-    throw e;
-  }
-}
