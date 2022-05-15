@@ -26,7 +26,6 @@ const Login: NextPage<{ access_token: string }> = ({ access_token }) => {
   `)
 
   if (!QueryLoading) {
-    if (QueryError) throw QueryError;
     if (QueryData) router.push('/home');
   }
 

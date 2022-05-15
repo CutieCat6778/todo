@@ -38,7 +38,6 @@ const Signup: NextPage<any> = ({ auth }) => {
   `)
 
   if (!QueryLoading) {
-    if (QueryError) throw QueryError;
     if (QueryData) router.push('/home');
   }
 
