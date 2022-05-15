@@ -8,7 +8,7 @@ import "@fontsource/space-mono";
 import "@fontsource/roboto";
 
 const link = createHttpLink({
-  uri: process.env.BACKEND_URL,
+  uri: process.env.NODE_ENV === "development" ? "http://localhost:6969/graphql" : "https://backend-todo.thinh.tech/graphql",
   credentials: "include"
 })
 
