@@ -13,7 +13,7 @@ export interface User {
   logedAt: Date;
 }
 
-const Home: NextPage<Props> = ({ auth }) => {
+const LandingPage: NextPage<Props> = ({ auth }) => {
 
   const router = useRouter();
 
@@ -106,4 +106,4 @@ const Home: NextPage<Props> = ({ auth }) => {
   )
 }
 
-export default Home
+export default LandingPage

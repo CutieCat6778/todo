@@ -1,11 +1,21 @@
 import type { AppProps } from 'next/app'
-import { ChakraProvider } from '@chakra-ui/react'
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react'
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import Head from 'next/head';
 import { theme } from '../utils/theme';
 import "@fontsource/comfortaa";
 import "@fontsource/space-mono";
 import "@fontsource/roboto";
+
+const link = createHttpLink({
+  uri: "http://localhost:6969/graphql",
+  credentials: "include"
+})
+
+const client = new ApolloClient({
+  link,
+  cache: new InMemoryCache(),
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,18 +31,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <CSSReset/>
+        <ApolloProvider client={client}>
+          <Component {...pageProps} />
+        </ApolloProvider>
       </ChakraProvider>
+
     </>
   )
 }
-
-
-const client = new ApolloClient({
-  uri: "http://localhost:6969/graphql/",
-  cache: new InMemoryCache(),
-});
-
-export { client };
 
 export default MyApp

@@ -1,10 +1,11 @@
-import { gql } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, Text } from "@chakra-ui/react";
 import request from "graphql-request";
 import { NextPage } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
 import getConfig from "next/config";
+import { useRouter } from "next/router";
 
 const { publicRuntimeConfig } = getConfig();
 export interface IsError {
@@ -24,6 +25,22 @@ const SIGNUP_USER = gql`
 `
 
 const Signup: NextPage<any> = ({ auth }) => {
+
+  const router = useRouter();
+
+  const { data: QueryData, loading: QueryLoading, error: QueryError } = useQuery(gql`
+    query {
+      cookieLogin {
+        username
+        _id
+      }
+    }
+  `)
+
+  if (!QueryLoading) {
+    if (QueryError) throw QueryError;
+    if (QueryData) router.push('/home');
+  }
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -46,19 +63,19 @@ const Signup: NextPage<any> = ({ auth }) => {
   }
 
   async function Signup() {
-    if(password.length < 6) return setIsError({
+    if (password.length < 6) return setIsError({
       isError: true,
       message: "Password is too, it need to be longer then 6 character!",
     })
 
     const regex = new RegExp(/^[A-Za-z]+$/);
-    if(!regex.test(username)) return setIsError({
+    if (!regex.test(username)) return setIsError({
       isError: true,
       message: "Username shouldn't contain special characters!",
     })
 
     const regexEmail = new RegExp(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)
-    if(!regexEmail.test(email)) return setIsError({
+    if (!regexEmail.test(email)) return setIsError({
       isError: true,
       message: "Invalid email format!",
     })
