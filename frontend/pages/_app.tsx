@@ -6,9 +6,11 @@ import { theme } from '../utils/theme';
 import "@fontsource/comfortaa";
 import "@fontsource/space-mono";
 import "@fontsource/roboto";
+import dotenv from 'dotenv'
+dotenv.config();
 
 const link = createHttpLink({
-  uri: process.env.NODE_ENV === "development" ? "http://localhost:6969/graphql" : "https://todo-backend-nsjs.herokuapp.com/graphql",
+  uri: process.env.BACKEND_URL,
   credentials: "include"
 })
 
