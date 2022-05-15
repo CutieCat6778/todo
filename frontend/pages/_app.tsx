@@ -6,8 +6,6 @@ import { theme } from '../utils/theme';
 import "@fontsource/comfortaa";
 import "@fontsource/space-mono";
 import "@fontsource/roboto";
-import dotenv from 'dotenv'
-dotenv.config();
 
 const link = createHttpLink({
   uri: process.env.BACKEND_URL,
